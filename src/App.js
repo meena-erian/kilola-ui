@@ -4,7 +4,15 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import { Home, Privacy, Terms } from './views'
+import { 
+  Home,
+  Privacy,
+  Terms,
+  SignIn,
+  SignUp,
+  CopyRight,
+  ForgotPassword
+} from './views'
 
 function App() {
   return (
@@ -13,6 +21,10 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/login" element={<SignIn />} />
+        <Route path="/register" element={<SignUp />} />
+        <Route path="/copyright" element={<CopyRight />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
       </Routes>
     </BrowserRouter>
   );
