@@ -5,6 +5,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import CopyRight from "./CopyRight";
 import ForgotPassword from "./ForgotPassword";
+import Loading from "./Loading";
 
 export {
     Home,
@@ -13,5 +14,6 @@ export {
     SignIn,
     SignUp,
     CopyRight,
-    ForgotPassword
+    ForgotPassword,
+    Loading
 }
