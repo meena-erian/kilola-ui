@@ -7,6 +7,13 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
+import { useState } from 'react';
+
+
 
 function Copyright(props) {
   return (
@@ -24,13 +31,24 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const [userType, setUserType] = useState('');
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
+      userType: data.get('user-type'),
     });
+  };
+
+  const handleTypeChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setUserType(
+      value,
+    );
   };
 
   return (
@@ -92,6 +110,22 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                 />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl sx={{ width: "100%" }}>
+                  <InputLabel id="user-type-select-label">Register As</InputLabel>
+                  <Select
+                    labelId="user-type-select-label"
+                    id="user-type-select"
+                    value={userType}
+                    label="Register As"
+                    name='user-type'
+                    onChange={handleTypeChange}
+                  >
+                    <MenuItem value={1}>Farmer</MenuItem>
+                    <MenuItem value={2}>Buyer</MenuItem>
+                  </Select>
+                </FormControl>
               </Grid>
             </Grid>
             <Button
