@@ -12,6 +12,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useState } from 'react';
+import register from '../auth/register';
 
 
 
@@ -32,14 +33,21 @@ const theme = createTheme();
 
 export default function SignUp() {
   const [userType, setUserType] = useState('');
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-      userType: data.get('user-type'),
-    });
+    const ret = await register(
+      data.get('username'),
+      data.get('firstName'),
+      data.get('lastName'),
+      data.get('password'),
+      data.get('email'),
+      data.get('user-type')
+    )
+    if(ret){
+      alert('Please check you email to complete your registration');
+    }
+    else alert('Something went wrong');
   };
 
   const handleTypeChange = (event) => {
@@ -104,6 +112,16 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
+                  id="username"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
                   name="password"
                   label="Password"
                   type="password"
@@ -115,6 +133,7 @@ export default function SignUp() {
                 <FormControl sx={{ width: "100%" }}>
                   <InputLabel id="user-type-select-label">Register As</InputLabel>
                   <Select
+                    required
                     labelId="user-type-select-label"
                     id="user-type-select"
                     value={userType}
@@ -122,8 +141,8 @@ export default function SignUp() {
                     name='user-type'
                     onChange={handleTypeChange}
                   >
-                    <MenuItem value={1}>Farmer</MenuItem>
-                    <MenuItem value={2}>Buyer</MenuItem>
+                    <MenuItem value={'farmer'}>Farmer</MenuItem>
+                    <MenuItem value={'buyer'}>Buyer</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>

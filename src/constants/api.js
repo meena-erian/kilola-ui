@@ -3,6 +3,7 @@ const session_cookie_name = 'kilola-session'
 
 const api = {
     login: '/login',
+    register: '/register',
     user: '/user'
 }
 
