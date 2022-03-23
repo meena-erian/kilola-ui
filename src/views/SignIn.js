@@ -30,7 +30,7 @@ export default function SignIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    var loggedin = await login(data.get('email'), data.get('password'));
+    var loggedin = await login(data.get('login'), data.get('password'));
     if(loggedin) window.location.href = '/';
   };
 
@@ -51,14 +51,14 @@ export default function SignIn() {
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
+            <TextField // Login is by username
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="login"
+              label="Username"
+              name="login"
+              autoComplete="login"
               autoFocus
             />
             <TextField
