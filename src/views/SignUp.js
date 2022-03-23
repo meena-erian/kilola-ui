@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -13,6 +12,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import { useState } from 'react';
 import register from '../auth/register';
+import LoadingButton from '@mui/lab/LoadingButton';
 
 
 
@@ -33,9 +33,11 @@ const theme = createTheme();
 
 export default function SignUp() {
   const [userType, setUserType] = useState('');
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    setLoading(true);
     const ret = await register(
       data.get('username'),
       data.get('firstName'),
@@ -48,6 +50,7 @@ export default function SignUp() {
       alert('Please check you email to complete your registration');
     }
     else alert('Something went wrong');
+    setLoading(false);
   };
 
   const handleTypeChange = (event) => {
@@ -147,14 +150,15 @@ export default function SignUp() {
                 </FormControl>
               </Grid>
             </Grid>
-            <Button
+            <LoadingButton
+              loading={loading}
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
-            </Button>
+            </LoadingButton>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/login" variant="body2">

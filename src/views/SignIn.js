@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -9,7 +8,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LoadingButton from '@mui/lab/LoadingButton';
 import { login } from '../auth';
+import { useState } from 'react';
 
 function Copyright(props) {
   return (
@@ -27,11 +28,14 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignIn() {
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = new FormData(event.currentTarget);
     var loggedin = await login(data.get('login'), data.get('password'));
     if(loggedin) window.location.href = '/';
+    setLoading(false);
   };
 
   return (
@@ -75,14 +79,15 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button
+            <LoadingButton
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              loading={loading}
             >
               Sign In
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item xs>
                 <Link href="/forgotpassword" variant="body2">
