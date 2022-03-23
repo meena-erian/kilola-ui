@@ -16,12 +16,13 @@ const client = {
     },
     GET: async function (endpoint) {
         var token = get_session_token();
-        return fetch(`${url}${endpoint}`, {
+        var res = await fetch(`${url}${endpoint}`, {
             method: 'GET',
             headers: {
                 "Authorization": token ? `Token ${token}` : undefined
             }
-        })
+        });
+        return await res.json();
     }
 }
 

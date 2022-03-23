@@ -1,25 +1,33 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { is_loggedin } from "../auth"
 import Loading from "./Loading";
+import { api } from "../constants/api";
+import { client } from "../auth";
+import FarmerDashboard from "./FarmerDashboard";
+import BuyerDashboard from "./BuyerDashboard";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
-    if(loading){
-        is_loggedin().then(loggedin => {
-            if(loggedin){
-                setLoading(false);
+    const [user, setUser] = useState();
+    useEffect(() => {
+        (async () => {
+            var loggedin = is_loggedin();
+            if (loggedin) {
+                var user = await client.GET(api.user);
+                console.log(user);
+                setUser(user);
+                setLoading(false)
             }
-            else{
-                window.location.href = '/login';
-            }
-        });
+            else window.location.href = '/login';
+        })();
+    }, []);
+    if (loading) {
         return <Loading />;
     }
-    return (
-        <div className="App">
-            <header className="App-header">
-                <p>This will be the home page</p>
-            </header>
-        </div>
-    )
+    if (user.type === 'farmer') {
+        return <FarmerDashboard user={user} />;
+    }
+    else {
+        return <BuyerDashboard user={user} />;
+    }
 }
