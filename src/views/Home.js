@@ -11,7 +11,7 @@ export default function Home() {
     const [user, setUser] = useState();
     useEffect(() => {
         (async () => {
-            var loggedin = is_loggedin();
+            var loggedin = await is_loggedin();
             if (loggedin) {
                 var user = await client.GET(api.user);
                 console.log(user);
