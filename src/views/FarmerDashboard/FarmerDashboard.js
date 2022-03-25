@@ -16,6 +16,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { mainListItems } from './listItems';
 import { useState, useEffect } from 'react';
 import FarmsPanel from './FarmsPanel';
@@ -24,6 +25,7 @@ import ReservationsPanel from './ReservationsPanel';
 import CircularProgress from '@mui/material/CircularProgress';
 import { api } from "../../constants/api";
 import { client } from "../../auth";
+import { session_cookie_name } from '../../constants/api';
 
 
 function Copyright(props) {
@@ -158,6 +160,11 @@ function DashboardContent(props) {
         setOpen(!open);
     };
 
+    const logout = () => {
+        document.cookie = session_cookie_name +'=; Max-Age=-99999999;';
+        window.location.reload();
+    }
+
     return (
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
@@ -194,6 +201,9 @@ function DashboardContent(props) {
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
+                        </IconButton>
+                        <IconButton color="inherit" onClick={logout}>
+                            <LogoutIcon />
                         </IconButton>
                     </Toolbar>
                 </AppBar>

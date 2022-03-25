@@ -21,7 +21,15 @@ Title.propTypes = {
 };
 
 export default function FarmsPanel(props) {
-  const { farms } = props
+  const { farms } = props;
+  if(!farms.length){
+    return (
+      <Fragment>
+      <Title>Your Farms</Title>
+      <p>You have not added any farms yet. Get started by using the button below to add a farm</p>
+      </Fragment>
+    )
+  }
   return (
     <Fragment>
       <Title>Your Farms</Title>
