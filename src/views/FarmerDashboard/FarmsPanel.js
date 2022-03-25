@@ -6,6 +6,7 @@ import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { Fragment } from 'react';
+import AddFarmButton from './AddFarmButton';
 
 function Title(props) {
   return (
@@ -42,6 +43,7 @@ export default function FarmsPanel(props) {
           ))}
         </TableBody>
       </Table>
+      <AddFarmButton />
     </Fragment>
   );
 }
