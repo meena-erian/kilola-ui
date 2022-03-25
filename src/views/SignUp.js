@@ -48,6 +48,7 @@ export default function SignUp() {
     )
     if(ret){
       alert('Please check you email to complete your registration');
+      window.location.href = '/login';
     }
     else alert('Something went wrong');
     setLoading(false);
