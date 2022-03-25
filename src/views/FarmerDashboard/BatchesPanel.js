@@ -5,6 +5,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
+import AddBatchButton from './AddBatchButton';
 import { Fragment } from 'react';
 
 function Title(props) {
@@ -20,7 +21,16 @@ Title.propTypes = {
 };
 
 export default function BatchesPanel(props) {
-  const { batches } = props;
+  const { batches, farms } = props;
+  if (!batches.length) {
+    return (
+      <Fragment>
+        <Title>Your Batches</Title>
+        <p>You have not yet added any batch. Use the button below to add a batch</p>
+        <AddBatchButton farms={farms} />
+      </Fragment>
+    )
+  }
   return (
     <Fragment>
       <Title>Your Batches</Title>
@@ -50,6 +60,7 @@ export default function BatchesPanel(props) {
           ))}
         </TableBody>
       </Table>
+      <AddBatchButton farms={farms}/>
     </Fragment>
   );
 }
