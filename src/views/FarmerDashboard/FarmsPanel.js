@@ -27,6 +27,7 @@ export default function FarmsPanel(props) {
       <Fragment>
       <Title>Your Farms</Title>
       <p>You have not added any farms yet. Get started by using the button below to add a farm</p>
+      <AddFarmButton />
       </Fragment>
     )
   }
