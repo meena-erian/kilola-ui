@@ -9,25 +9,25 @@ import { Fragment } from 'react';
 
 export const mainListItems = (
   <Fragment>
-    <ListItemButton>
-      <ListItemIcon>
-        <AgricultureIcon />
-      </ListItemIcon>
-      <ListItemText primary="My Farms" />
-    </ListItemButton>
-    <ListItemButton>
-      <ListItemIcon>
-        <LocalOfferIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customer Offers" />
-    </ListItemButton>
-    <ListItemButton>
+    <ListItemButton selected>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton disabled>
+      <ListItemIcon>
+        <AgricultureIcon />
+      </ListItemIcon>
+      <ListItemText primary="My Farms" />
+    </ListItemButton>
+    <ListItemButton disabled>
+      <ListItemIcon>
+        <LocalOfferIcon />
+      </ListItemIcon>
+      <ListItemText primary="Customer Offers" />
+    </ListItemButton>
+    <ListItemButton disabled>
       <ListItemIcon>
         <SettingsIcon />
       </ListItemIcon>

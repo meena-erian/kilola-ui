@@ -4,7 +4,9 @@ const session_cookie_name = 'kilola-session'
 const api = {
     login: '/login',
     register: '/register',
-    user: '/user'
+    user: '/user',
+    user_farm: '/user/farm',
+    user_batch: '/user/batch'
 }
 
 export {

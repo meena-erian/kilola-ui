@@ -17,7 +17,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems } from './listItems';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import FarmsPanel from './FarmsPanel';
+import BatchesPanel from './BatchesPanel';
+import ReservationsPanel from './ReservationsPanel';
+import CircularProgress from '@mui/material/CircularProgress';
+import { api } from "../../constants/api";
+import { client } from "../../auth";
+
 
 function Copyright(props) {
     return (
@@ -52,6 +59,70 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+
+function Content(props) {
+    //const { user } = props;
+    const [loading, setLoading] = useState(true);
+    const [farms, setFarms] = useState();
+    const [batches, setBatches] = useState();
+
+
+    useEffect(() => {
+        (async () => {
+            var farms_res = await client.GET(api.user_farm);
+            var batches_res = await client.GET(api.user_batch);
+            setFarms(farms_res);
+            setBatches(batches_res);
+            setLoading(false);
+        })();
+    }, []);
+
+    if(loading){
+        return (
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <CircularProgress />
+            </Container>
+        )
+    }
+
+    return (
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+                <Grid item xs={12} md={8} lg={12}>
+                    <Paper
+                        sx={{
+                            p: 2,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            minHeight: 450,
+                        }}
+                    >
+                        <FarmsPanel farms={farms} />
+                    </Paper>
+                </Grid>
+                <Grid item xs={12} md={4} lg={12}>
+                    <Paper
+                        sx={{
+                            p: 2,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            minHeight: 450,
+                        }}
+                    >
+                        <BatchesPanel batches={batches} />
+                    </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                        <ReservationsPanel />
+                    </Paper>
+                </Grid>
+            </Grid>
+            <Copyright sx={{ pt: 4 }} />
+        </Container>
+    )
+}
+
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
         '& .MuiDrawer-paper': {
@@ -81,6 +152,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent(props) {
+    const { user } = props;
     const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -115,9 +187,9 @@ function DashboardContent(props) {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            Kilola 
+                            Kilola
                         </Typography>
-                        <Typography>Hi {props.user.username}</Typography>
+                        <Typography>Hi {user.username}</Typography>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
@@ -157,40 +229,7 @@ function DashboardContent(props) {
                     }}
                 >
                     <Toolbar />
-                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={8} lg={9}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    <h1>Top Left Panel</h1>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} md={4} lg={3}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    <h1>Top Right Panel</h1>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                                    <h1>Bottom Panel</h1>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                        <Copyright sx={{ pt: 4 }} />
-                    </Container>
+                    <Content user={user} />
                 </Box>
             </Box>
         </ThemeProvider>
@@ -198,5 +237,5 @@ function DashboardContent(props) {
 }
 
 export default function FarmerDashboard(props) {
-    return <DashboardContent user={props.user}/>;
+    return <DashboardContent user={props.user} />;
 }
