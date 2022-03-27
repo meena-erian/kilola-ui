@@ -7,8 +7,8 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LoadingButton from '@mui/lab/LoadingButton';
-import { api } from "../../constants/api";
-import { client } from '../../auth';
+import { api } from "../../../../../constants/api";
+import { client } from '../../../../../auth';
 import { useState } from 'react';
 
 

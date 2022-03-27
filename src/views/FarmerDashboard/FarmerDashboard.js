@@ -9,23 +9,14 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { mainListItems } from './listItems';
-import { useState, useEffect } from 'react';
-import FarmsPanel from './FarmsPanel';
-import BatchesPanel from './BatchesPanel';
-import ReservationsPanel from './ReservationsPanel';
-import CircularProgress from '@mui/material/CircularProgress';
-import { api } from "../../constants/api";
-import { client } from "../../auth";
+import { MenuItems } from './MenuItems';
+import { useState } from 'react';
 import { session_cookie_name } from '../../constants/api';
-import Copyright from '../../components/Copyright';
+import Content from './Content';
 
 const drawerWidth = 240;
 
@@ -48,68 +39,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 
-function Content(props) {
-    //const { user } = props;
-    const [loading, setLoading] = useState(true);
-    const [farms, setFarms] = useState();
-    const [batches, setBatches] = useState();
 
-
-    useEffect(() => {
-        (async () => {
-            var farms_res = await client.GET(api.user_farm);
-            var batches_res = await client.GET(api.user_batch);
-            setFarms(farms_res);
-            setBatches(batches_res);
-            setLoading(false);
-        })();
-    }, []);
-
-    if(loading){
-        return (
-            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                <CircularProgress />
-            </Container>
-        )
-    }
-
-    return (
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-                <Grid item xs={12} md={12} lg={12}>
-                    <Paper
-                        sx={{
-                            p: 2,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            minHeight: 450,
-                        }}
-                    >
-                        <FarmsPanel farms={farms} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} md={12} lg={12}>
-                    <Paper
-                        sx={{
-                            p: 2,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            minHeight: 450,
-                        }}
-                    >
-                        <BatchesPanel batches={batches} farms={farms} />
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                        <ReservationsPanel />
-                    </Paper>
-                </Grid>
-            </Grid>
-            <Copyright sx={{ pt: 4 }} />
-        </Container>
-    )
-}
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
     ({ theme, open }) => ({
@@ -142,6 +72,8 @@ const mdTheme = createTheme();
 function DashboardContent(props) {
     const { user } = props;
     const [open, setOpen] = useState(false);
+    const [page, setPage] = useState('dashboard');
+    
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -208,7 +140,7 @@ function DashboardContent(props) {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
+                        <MenuItems page={page} setPage={setPage} />
                         <Divider sx={{ my: 1 }} />
                     </List>
                 </Drawer>
@@ -225,7 +157,7 @@ function DashboardContent(props) {
                     }}
                 >
                     <Toolbar />
-                    <Content user={user} />
+                    <Content user={user} page={page} />
                 </Box>
             </Box>
         </ThemeProvider>
