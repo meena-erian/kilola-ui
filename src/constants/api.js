@@ -6,7 +6,8 @@ const api = {
     register: '/register',
     user: '/user',
     user_farm: '/user/farm',
-    user_batch: '/user/batch'
+    user_batch: '/user/batch',
+    search_batch: '/batch/search'
 }
 
 export {

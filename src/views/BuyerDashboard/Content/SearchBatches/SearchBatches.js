@@ -1,9 +1,33 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useEffect, useState } from 'react';
 import Copyright from '../../../../components/Copyright';
+import SearchPanel from './SearchPanel/SearchPanel';
+import { client } from '../../../../auth';
+import { api } from '../../../../constants/api';
 
 export default function SearchBatches(props) {
+    const [loading, setLoading] = useState(true);
+    const [batches, setBatches] = useState();
+
+    useEffect(() => {
+        (async () => {
+            var batches_res = await client.GET(api.search_batch);
+            setBatches(batches_res);
+            setLoading(false);
+        })();
+    }, []);
+
+    if(loading){
+        return (
+            <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+                <CircularProgress />
+            </Container>
+        )
+    }
+
     return (
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
@@ -16,7 +40,7 @@ export default function SearchBatches(props) {
                             minHeight: 450,
                         }}
                     >
-                        <h1>Search Batches</h1>
+                        <SearchPanel batches={batches}/>
                     </Paper>
                 </Grid>
             </Grid>
