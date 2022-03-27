@@ -155,7 +155,7 @@ const mdTheme = createTheme();
 
 function DashboardContent(props) {
     const { user } = props;
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
     };
