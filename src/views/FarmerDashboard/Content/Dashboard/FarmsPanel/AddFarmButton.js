@@ -60,26 +60,26 @@ export default function AddFarmButton() {
                 <DialogContent dividers={true}>
                     <Box component="form" id="add-farm-form" noValidate onSubmit={saveForm} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={9}>
+                            <Grid item xs={12} sm={8}>
                                 <TextField
                                     autoComplete="name"
                                     name="name"
                                     required
                                     fullWidth
                                     id="name"
-                                    label="Farm Name"
+                                    label="Farm Name (How you refer to this farm?)"
                                     autoFocus
                                     disabled={saving}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={3}>
+                            <Grid item xs={12} sm={4}>
                                 <TextField
                                     autoComplete="size"
                                     name="size"
                                     required
                                     fullWidth
                                     id="size"
-                                    label="Size"
+                                    label="Size (in acres)"
                                     disabled={saving}
                                 />
                             </Grid>
@@ -91,7 +91,7 @@ export default function AddFarmButton() {
                                     label="Location"
                                     name="location"
                                     autoComplete="location"
-                                    value={"24°28'56.1\"N 54°20'51.2\"E"}
+                                    defaultValue={"24°28'56.1\"N 54°20'51.2\"E"}
                                     disabled={saving}
                                 />
                             </Grid>

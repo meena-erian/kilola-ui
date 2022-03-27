@@ -110,7 +110,7 @@ export default function AddBatchButton(props) {
                                 <TextField
                                     autoComplete="area"
                                     name="area"
-                                    defaultValue={1000}
+                                    defaultValue={1}
                                     required
                                     fullWidth
                                     id="area"
@@ -122,7 +122,7 @@ export default function AddBatchButton(props) {
                                 <TextField
                                     autoComplete="weight"
                                     name="weight"
-                                    defaultValue={1}
+                                    defaultValue={1000}
                                     required
                                     fullWidth
                                     id="weight"
@@ -136,7 +136,7 @@ export default function AddBatchButton(props) {
                                     name="planting_date"
                                     required
                                     fullWidth
-                                    value={'2022-3-25'}
+                                    defaultValue={'2022-3-25'}
                                     id="planting_date"
                                     label="Planting Date"
                                     disabled={saving}
@@ -148,7 +148,7 @@ export default function AddBatchButton(props) {
                                     name="harvesting_date"
                                     required
                                     fullWidth
-                                    value={'2023-3-25'}
+                                    defaultValue={'2023-3-25'}
                                     id="harvesting_date"
                                     label="Harvesting Date"
                                     disabled={saving}
@@ -163,7 +163,7 @@ export default function AddBatchButton(props) {
                                     name="description"
                                     multiline
                                     autoComplete="description"
-                                    value={"This is the best quality fruit in the world"}
+                                    defaultValue={"This is the best quality fruit in the world"}
                                     disabled={saving}
                                 />
                             </Grid>
