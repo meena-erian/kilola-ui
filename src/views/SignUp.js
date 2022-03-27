@@ -61,7 +61,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <img src='/logo.png' alr='logo' />
+          <img src='/logo.png' alt='logo' />
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
