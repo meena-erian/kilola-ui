@@ -13,21 +13,7 @@ import FormControl from '@mui/material/FormControl';
 import { useState } from 'react';
 import register from '../auth/register';
 import LoadingButton from '@mui/lab/LoadingButton';
-
-
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="/copyright">
-        Kilola
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Copyright from '../components/Copyright';
 
 const theme = createTheme();
 
