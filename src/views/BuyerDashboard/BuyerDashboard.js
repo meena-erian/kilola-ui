@@ -16,8 +16,11 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { mainListItems } from './listItems';
 import { useState } from 'react';
+import { session_cookie_name } from '../../constants/api';
+
 
 function Copyright(props) {
     return (
@@ -81,10 +84,16 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 function DashboardContent(props) {
-    const [open, setOpen] = useState(true);
+    const { user } = props;
+    const [open, setOpen] = useState(false);
     const toggleDrawer = () => {
         setOpen(!open);
     };
+
+    const logout = () => {
+        document.cookie = session_cookie_name +'=; Max-Age=-99999999;';
+        window.location.reload();
+    }
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -117,11 +126,14 @@ function DashboardContent(props) {
                         >
                             Kilola 
                         </Typography>
-                        <Typography>Hi {props.user.username}</Typography>
+                        <Typography>Hi {user.username}</Typography>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
+                        </IconButton>
+                        <IconButton color="inherit" onClick={logout}>
+                            <LogoutIcon />
                         </IconButton>
                     </Toolbar>
                 </AppBar>
