@@ -9,31 +9,14 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { mainListItems } from './listItems';
+import { MenuItems } from './MenuItems';
 import { useState } from 'react';
 import { session_cookie_name } from '../../constants/api';
-
-
-function Copyright(props) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="/copyright">
-                Kilola
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import Content from './Content';
 
 const drawerWidth = 240;
 
@@ -86,6 +69,7 @@ const mdTheme = createTheme();
 function DashboardContent(props) {
     const { user } = props;
     const [open, setOpen] = useState(false);
+    const [page, setPage] = useState('search');
     const toggleDrawer = () => {
         setOpen(!open);
     };
@@ -152,7 +136,7 @@ function DashboardContent(props) {
                     </Toolbar>
                     <Divider />
                     <List component="nav">
-                        {mainListItems}
+                        <MenuItems page={page} setPage={setPage} />
                         <Divider sx={{ my: 1 }} />
                     </List>
                 </Drawer>
@@ -169,40 +153,7 @@ function DashboardContent(props) {
                     }}
                 >
                     <Toolbar />
-                    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={8} lg={9}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    <h1>Top Left Panel</h1>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12} md={4} lg={3}>
-                                <Paper
-                                    sx={{
-                                        p: 2,
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        height: 240,
-                                    }}
-                                >
-                                    <h1>Top Right Panel</h1>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                                    <h1>Bottom Panel</h1>
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                        <Copyright sx={{ pt: 4 }} />
-                    </Container>
+                    <Content page={page} />
                 </Box>
             </Box>
         </ThemeProvider>
