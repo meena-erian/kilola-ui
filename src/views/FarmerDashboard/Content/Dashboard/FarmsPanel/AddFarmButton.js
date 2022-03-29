@@ -10,6 +10,7 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { api } from "../../../../../constants/api";
 import { client } from '../../../../../auth';
 import { useState } from 'react';
+import LocationInput from '../../../../../components/LocationInput';
 
 
 export default function AddFarmButton() {
@@ -36,7 +37,7 @@ export default function AddFarmButton() {
                 location: data.get('location')
             }
         );
-        if('id' in farm){
+        if ('id' in farm) {
             window.location.reload();
         }
         else {
@@ -87,12 +88,23 @@ export default function AddFarmButton() {
                                 <TextField
                                     required
                                     fullWidth
-                                    id="location"
+                                    id="location-input"
                                     label="Location"
                                     name="location"
                                     autoComplete="location"
-                                    defaultValue={"24°28'56.1\"N 54°20'51.2\"E"}
-                                    disabled={saving}
+                                    disabled={false}
+                                />
+                                <LocationInput
+                                    center={{ lat: -34.397, lng: 150.644 }}
+                                    zoom={4}
+                                    style={{ height: '200px' }}
+                                    onChange={
+                                        loc => {
+                                            let inp = document.querySelector('#location-input');
+                                            inp.focus();
+                                            inp.value = `Lat:${loc.lat} Lng:${loc.lng}`;
+                                        }
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={12}>

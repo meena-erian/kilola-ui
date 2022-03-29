@@ -4,7 +4,7 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import { 
+import {
   Home,
   Privacy,
   Terms,
@@ -13,20 +13,36 @@ import {
   CopyRight,
   ForgotPassword
 } from './views'
+import { Wrapper } from "@googlemaps/react-wrapper";
+import { Loading } from './views';
+
+
+function GoogleMap(props) {
+  const render = (status) => {
+    return <Loading msg={`Google Maps ${status}`} />
+  };
+  return (
+    <Wrapper apiKey={"AIzaSyClWKWXZr4ntb-flOJOcT0ln9tFmz_mo94"} render={render}>
+      {props.children}
+    </Wrapper>
+  )
+}
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/login" element={<SignIn />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/copyright" element={<CopyRight />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-      </Routes>
-    </BrowserRouter>
+    <GoogleMap>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/copyright" element={<CopyRight />} />
+          <Route path="/forgotpassword" element={<ForgotPassword />} />
+        </Routes>
+      </BrowserRouter>
+    </GoogleMap>
   );
 }
 
